@@ -1,5 +1,12 @@
-node {
-  git url: 'https://github.com/jglick/simple-maven-project-with-tests.git'
-  def mvnHome = tool 'M3'
-  sh "${mvnHome}/bin/mvn -B verify"
+@Library('github.com/cloudbeers/multibranch-demo-lib') _
+standardBuild {
+    environment = 'golang:1.5.0'
+    mainScript = '''
+go version
+go build -v hello-world.go
+'''
+    postScript = '''
+ls -l
+./hello-world
+'''
 }
